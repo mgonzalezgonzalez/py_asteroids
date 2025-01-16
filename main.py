@@ -2,8 +2,10 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from constants import *
-from player import *
+from player import Player
 
 def main():
     print("Starting asteroids!")
@@ -16,10 +18,19 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    Player.containers = (updatable, drawable)    
+    asteroids = pygame.sprite.Group()
 
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = updatable    
+    asteroidfield = AsteroidField()
+
+    Player.containers = (updatable, drawable)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)    
+    
     dt = 0
+
+    print(f"{len(drawable)}")
 
     while True:
 
@@ -31,9 +42,9 @@ def main():
             ob.update(dt)
         
         screen.fill("black")
-                
+
         for ob in drawable:
-            player.draw(screen)
+            ob.draw(screen)
 
         pygame.display.flip()
         
