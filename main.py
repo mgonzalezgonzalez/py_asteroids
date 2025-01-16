@@ -50,7 +50,11 @@ def main():
                 print("GAME OVER!")
                 return
             
-        
+            for shot in shots:
+                if ast.check_collisions(shot):
+                    shot.kill()
+                    ast.kill()
+                    
         screen.fill("black")
 
         for ob in drawable:
